@@ -62,5 +62,10 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.7</version>
         </dependency>
+        <dependency>
+            <groupId>com.np.teva.core</groupId>
+            <artifactId>np-teva-core</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 </project>
