@@ -35,6 +35,21 @@ public class TransitoServiceImpl implements TransitoService {
     }
 
     @Override
+    public List<TransitoBean> findTransitosReprocesadoRemesadas(Date fechaSancion) throws AccesoDatosException {
+        List<TransitoBean> transitos = new ArrayList<>();
+
+        try{
+            transitos = transitoStore.findTransitosReprocesadoRemesadas(fechaSancion);
+        }catch (MyBatisSystemException mex) {
+            throw new AccesoDatosException("MyBatisSystemException running findTransitosReprocesadoRemesadas", mex);
+        } catch (DataAccessException dex) {
+            throw new AccesoDatosException("DataAccessException running findTransitosReprocesadoRemesadas", dex);
+        }
+
+        return transitos;
+    }
+
+    @Override
     public List<TransitoBean> findTransitosPendientesValidados(Date fechaSancion, int codigoZona) throws AccesoDatosException {
         List<TransitoBean> transitos = new ArrayList<>();
 

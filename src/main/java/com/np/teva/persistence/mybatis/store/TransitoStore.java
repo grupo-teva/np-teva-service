@@ -111,6 +111,29 @@ public interface TransitoStore {
     })
     List<TransitoBean> findTransitosReprocesado(@Param("fechaSancion") Date fechaSancion);
 
+    @Select({"SELECT t.cod_transito, t.cod_captura, t.tms_transito, t.cod_pdc, t.txt_matricula, t.txt_matricula_leida, t.cod_tipo_transito, " +
+            "t.cod_estado_importacion, t.ind_entrada, t.txt_ruta_imagenes, t.ind_pte_importer " +
+            "from validacion.t_transito t " +
+            "inner join validacion.t_sancion s on s.cod_transito = t.cod_transito " +
+            "where s.cod_estado_sancion in (5, 12) " +
+            "and s.fec_sancion = #{fechaSancion} " +
+            "order by s.fec_sancion;"})
+    @Results(value = {
+            @Result(property = "id", column = "cod_transito", javaType = UUID.class, jdbcType = JdbcType.OTHER, typeHandler = com.np.teva.persistence.mybatis.typehandler.UUIDTypeHandler.class),
+            @Result(property = "idCaptura", column = "cod_captura", javaType = UUID.class, jdbcType = JdbcType.OTHER, typeHandler = com.np.teva.persistence.mybatis.typehandler.UUIDTypeHandler.class),
+            @Result(property = "tmsTransito", column = "tms_transito"),
+            @Result(property = "pdc", column = "cod_pdc"),
+            @Result(property = "plate", column = "txt_matricula"),
+            @Result(property = "readPlate", column = "txt_matricula_leida"),
+            @Result(property = "transitoType", column = "cod_tipo_transito"),
+            @Result(property = "estadoImportacion", column = "cod_estado_importacion"),
+            @Result(property = "Into", column = "ind_entrada"),
+            @Result(property = "imagesPath", column = "txt_ruta_imagenes"),
+            @Result(property = "pteImporter", column = "ind_pte_importer")
+    })
+    List<TransitoBean> findTransitosReprocesadoRemesadas(@Param("fechaSancion") Date fechaSancion);
+
+
     @Update({"UPDATE validacion.t_transito SET cod_tipo_transito = #{tipoTransito}, "
             + "cod_estado_importacion = #{importStateType}, "
             + "ind_pte_importer = #{pteImporter}, "
