@@ -23,6 +23,7 @@ com\np\teva\persistence\mybatis\store\EstadoRemesaStore.class
 com\np\teva\persistence\mybatis\store\ReglaAccesoStore.class
 com\np\teva\persistence\mybatis\store\PermisoTransitoStore.class
 com\np\teva\service\ConstanteService.class
+com\np\teva\persistence\dao\impl\AuditoriaBatchDAOImpl.class
 com\np\teva\persistence\mybatis\store\TransitoStore.class
 com\np\teva\service\TransitoService.class
 com\np\teva\service\impl\AccesoPermitidoServiceImpl.class
@@ -32,6 +33,7 @@ com\np\teva\persistence\mybatis\store\ItinerarioStore.class
 com\np\teva\service\impl\ReglaNegocioServiceImpl.class
 com\np\teva\service\impl\PermisoTransitoServiceImpl.class
 com\np\teva\service\impl\TransitoServiceImpl.class
+com\np\teva\persistence\dao\AuditoriaBatchDAO.class
 com\np\teva\persistence\mybatis\store\SancionStore.class
 com\np\teva\service\impl\PeriodoServiceImpl.class
 com\np\teva\service\ReglaAccesoService.class

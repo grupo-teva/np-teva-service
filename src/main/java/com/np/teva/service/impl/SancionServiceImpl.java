@@ -46,6 +46,20 @@ public class SancionServiceImpl implements SancionService {
     }
 
     @Override
+    public int updateSancionRemesada(UUID codigoTransito, int codigoEstado, int codigoSistema) throws AccesoDatosException {
+        int total = 0;
+        try {
+            total = sancionStore.updateEstadoRemesada(codigoTransito, codigoEstado, codigoSistema);
+        } catch (MyBatisSystemException mex) {
+            throw new AccesoDatosException("MyBatisSystemException running updateSancion", mex);
+        } catch (DataAccessException dex) {
+            throw new AccesoDatosException("DataAccessException running updateSancion", dex);
+        }
+
+        return total;
+    }
+
+    @Override
     public int contarSancionesPendientesValidar(Date fec_sancion) throws AccesoDatosException {
         int total = 0;
         try {

@@ -37,4 +37,12 @@ public interface SancionStore {
             "cod_sistema = #{cod_sistema} " +
             "where cod_transito = #{cod_transito}")
     int updateEstado(@Param("cod_transito") UUID cod_transito, @Param("cod_estado") Integer cod_estado, @Param("cod_sistema") Integer cod_sistema);
+
+    @Update("update validacion.t_sancion set " +
+            "num_boletin = null, " +
+            "cod_estado_sancion = #{cod_estado}, " +
+            "cod_sistema = #{cod_sistema} " +
+            "where cod_transito = #{cod_transito}")
+    int updateEstadoRemesada(@Param("cod_transito") UUID cod_transito, @Param("cod_estado") Integer cod_estado, @Param("cod_sistema") Integer cod_sistema);
+
 }
