@@ -12,7 +12,7 @@ public interface ReglaAccesoService {
 
     List<ReglaAccesoBean> findReglasZBE() throws AccesoDatosException;
 
-    List<ReglaAccesoBean> findReglasExcepcionByZona(int codZona) throws AccesoDatosException;
+    List<ReglaAccesoBean> findReglasExcepcion() throws AccesoDatosException;
 
-    List<ReglaAccesoBean> findReglasProhibicionByZona(int codZona) throws AccesoDatosException;
+    List<ReglaAccesoBean> findReglasProhibicion() throws AccesoDatosException;
 }

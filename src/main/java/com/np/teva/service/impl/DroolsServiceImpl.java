@@ -30,6 +30,8 @@ import java.util.stream.Collectors;
 @Service
 public class DroolsServiceImpl implements DroolsService {
 
+    private static String nombreMunicipio = "Fuenlabrada";
+
     private static Logger LOG = LoggerFactory.getLogger(DroolsServiceImpl.class);
 
     private RestTemplate restTemplate = new RestTemplate();
@@ -67,7 +69,7 @@ public class DroolsServiceImpl implements DroolsService {
     @Override
     public DroolsResponseBean isValidVehicle(TransitoBean transitoBean, VehiculoBean vehiculoBean, List<AccesosBean> accesosBeanList, boolean isLaborable, List<ReglaAccesoBean> reglas, Boolean isDomiciliado, Boolean cumpleItinerario, Boolean historico) throws DroolsException {
 
-        DroolsBean droolsBean = new DroolsBean(transitoBean, vehiculoBean, accesosBeanList, reglas, isLaborable, isDomiciliado, cumpleItinerario, historico);
+        DroolsBean droolsBean = new DroolsBean(transitoBean, vehiculoBean, accesosBeanList, reglas, isLaborable, isDomiciliado, historico);
         DroolsResponseBean response = new DroolsResponseBean();
         String url = applicationPropertiesService.getDroolsUrl();
         try {
@@ -91,6 +93,89 @@ public class DroolsServiceImpl implements DroolsService {
         } catch (Exception e) {
             throw new DroolsException("Exception running isValidVehicle", e);
         }
+
+        return response;
+    }
+
+    @Override
+    public DroolsResponseBean getResponse(TransitoBean transitoBean, List<AccesosBean> accesos, Boolean isLaborable) throws DroolsException, AccesoDatosException {
+        DroolsResponseBean response = new DroolsResponseBean();
+        String url = applicationPropertiesService.getDroolsUrl();
+        try {
+            VehiculoBean vehiculoBean = vehiculoService.findVehiculo(transitoBean.getPlate());
+            Boolean isDomiciliado = vehiculoBean.isDomiciliado(nombreMunicipio);
+            Boolean isHistorico = vehiculoBean.getHistorico();
+            List<ReglaAccesoBean> reglas = getReglas(transitoBean);
+
+            DroolsBean droolsBean = new DroolsBean(transitoBean, vehiculoBean, accesos, reglas, isLaborable, isDomiciliado, isHistorico);
+            URI uri = new URI(url);
+            ResponseEntity<String> routeResponse = restTemplate.postForEntity(uri, droolsBean, String.class);
+            if (HttpStatus.OK.equals(routeResponse.getStatusCode())) {
+                String responseData = routeResponse.getBody();
+                ObjectMapper mapper = new ObjectMapper();
+                response = mapper.readValue(responseData, DroolsResponseBean.class);
+
+                if (StringUtils.isNotBlank(response.getErrorMessage())) {
+                    LOG.info("Drools responde KO. Error: " + response.getErrorMessage());
+                    throw new DroolsException(response.getErrorMessage());
+                }
+            } else {
+                String errorStatus = "Response status is not OK, is " + routeResponse.getStatusCode().value() + " getting rest drools request.";
+                throw new DroolsException(errorStatus);
+            }
+        } catch (URISyntaxException e) {
+            throw new DroolsException("URISyntaxException running getResponse.", e);
+        } catch (AccesoDatosException e) {
+            LOG.error("AccesoDatosException running getResponse", e);
+            throw new DroolsException("AccesoDatosException running getResponse", e);
+        } catch (Exception e) {
+            LOG.error("Exception running getResponse", e);
+            throw new DroolsException("Exception running getResponse", e);
+        }
+
+        // Guardamos la respuesta de drools
+        createReglaTransitoByName(transitoBean, response);
+
+        return response;
+    }
+
+    @Override
+    public DroolsResponseBean getResponseSimulado(TransitoBean transitoBean, List<AccesosBean> accesos, Boolean isLaborable) throws DroolsException, AccesoDatosException {
+        DroolsResponseBean response = new DroolsResponseBean();
+        String url = applicationPropertiesService.getDroolsUrl();
+        try {
+            VehiculoBean vehiculoBean = vehiculoService.findVehiculo(transitoBean.getPlate());
+            Boolean isDomiciliado = vehiculoBean.isDomiciliado(nombreMunicipio);
+            Boolean isHistorico = vehiculoBean.getHistorico();
+            List<ReglaAccesoBean> reglas = getReglas(transitoBean);
+
+            DroolsBean droolsBean = new DroolsBean(transitoBean, vehiculoBean, accesos, reglas, isLaborable, isDomiciliado, isHistorico);
+            URI uri = new URI(url);
+            ResponseEntity<String> routeResponse = restTemplate.postForEntity(uri, droolsBean, String.class);
+            if (HttpStatus.OK.equals(routeResponse.getStatusCode())) {
+                String responseData = routeResponse.getBody();
+                ObjectMapper mapper = new ObjectMapper();
+                response = mapper.readValue(responseData, DroolsResponseBean.class);
+
+                if (StringUtils.isNotBlank(response.getErrorMessage())) {
+                    LOG.info("Drools responde KO. Error: " + response.getErrorMessage());
+                    throw new DroolsException(response.getErrorMessage());
+                }
+            } else {
+                String errorStatus = "Response status is not OK, is " + routeResponse.getStatusCode().value() + " getting rest drools request.";
+                throw new DroolsException(errorStatus);
+            }
+        } catch (URISyntaxException e) {
+            throw new DroolsException("URISyntaxException running getResponse.", e);
+        } catch (AccesoDatosException e) {
+            LOG.error("AccesoDatosException running getResponse", e);
+            throw new DroolsException("AccesoDatosException running getResponse", e);
+        } catch (Exception e) {
+            LOG.error("Exception running getResponse", e);
+            throw new DroolsException("Exception running getResponse", e);
+        }
+
+        // No guardamos registro en t_regla_transito
 
         return response;
     }
@@ -111,47 +196,7 @@ public class DroolsServiceImpl implements DroolsService {
         return reglaNegocio;
     }
 
-    @Override
-    public DroolsResponseBean checkDrools(TransitoBean transitoBean) throws DroolsException, AccesoDatosException {
-        VehiculoBean vehiculoBean = vehiculoService.findVehiculo(transitoBean.getPlate());
-        boolean laborable = false;
-        //String nombreMunicipio = applicationPropertiesService.getNombreMunicipio();
-        String nombreMunicipio = "Malaga";
-        Boolean domiciliado = vehiculoBean.isDomiciliado(nombreMunicipio);
-        Boolean historico = vehiculoBean.getHistorico();
-        List<AccesosBean> accesosBean = getAccesos(transitoBean);
-        List<ReglaAccesoBean> reglasBean = getReglas(transitoBean);
-        Boolean cumpleItinerario = cumpleItinerario(transitoBean, accesosBean, vehiculoBean);
-
-        DroolsBean droolsBean = new DroolsBean(transitoBean, vehiculoBean, accesosBean, reglasBean, laborable, domiciliado, cumpleItinerario, historico);
-        DroolsResponseBean response = new DroolsResponseBean();
-        String url = applicationPropertiesService.getDroolsUrl();
-        try {
-            URI uri = new URI(url);
-            ResponseEntity<String> routeResponse = restTemplate.postForEntity(uri, droolsBean, String.class);
-            if (HttpStatus.OK.equals(routeResponse.getStatusCode())) {
-                String responseData = routeResponse.getBody();
-                ObjectMapper mapper = new ObjectMapper();
-                response = mapper.readValue(responseData, DroolsResponseBean.class);
-
-                if (StringUtils.isNotBlank(response.getErrorMessage())) {
-                    LOG.info("Drools responde KO. Error: " + response.getErrorMessage());
-                    throw new DroolsException(response.getErrorMessage());
-                }
-            } else {
-                String errorStatus = "Response status is not OK, is " + routeResponse.getStatusCode().value() + " getting rest drools request.";
-                throw new DroolsException(errorStatus);
-            }
-        } catch (URISyntaxException e) {
-            throw new DroolsException("URISyntaxException running isValidVehicle.", e);
-        } catch (Exception e) {
-            throw new DroolsException("Exception running isValidVehicle", e);
-        }
-
-        return response;
-    }
-
-
+    /* TODO: Ver si es conveniente que este método esté aquí. La lista de accesos se usa en el servicio llamador para asociar los permisos al tránsito
     private List<AccesosBean> getAccesos(TransitoBean transito) throws AccesoDatosException {
         List<AccesosBean> accesos = new ArrayList<>();
 
@@ -165,6 +210,7 @@ public class DroolsServiceImpl implements DroolsService {
 
         return accesos;
     }
+    */
 
     private List<AccesosBean> createbyAccesoIntranetBean(
             List<AccesoIntranetBean> accesoIntranetBeanList, LocalDate day) {
@@ -360,9 +406,8 @@ public class DroolsServiceImpl implements DroolsService {
     private List<ReglaAccesoBean> getReglas(TransitoBean transito) throws AccesoDatosException {
         List<ReglaAccesoBean> reglas = new ArrayList<>();
 
-        PuntoCapturaBean pdc = puntoCapturaService.findPDC(transito.getPdc());
-        List<ReglaAccesoBean> reglasProhibicion = reglaAccesoService.findReglasProhibicionByZona(pdc.getCodZona());
-        List<ReglaAccesoBean> reglasExcepcion = reglaAccesoService.findReglasExcepcionByZona(pdc.getCodZona());
+        List<ReglaAccesoBean> reglasProhibicion = reglaAccesoService.findReglasProhibicion();
+        List<ReglaAccesoBean> reglasExcepcion = reglaAccesoService.findReglasExcepcion();
         reglas.addAll(reglasExcepcion);
         reglas.addAll(reglasProhibicion);
 

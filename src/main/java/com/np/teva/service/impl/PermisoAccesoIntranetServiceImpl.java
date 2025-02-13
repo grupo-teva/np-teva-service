@@ -26,13 +26,8 @@ public class PermisoAccesoIntranetServiceImpl implements PermisoAccesoIntranetSe
         try {
             List<AccesoIntranetBean> accesosEstandar = permisoAccesoIntranetStore.getPermisosAcessoByPlate(plate, day.toLocalDateTime().toLocalDate());
             List<AccesoIntranetBean> accesosPuntuales = permisoAccesoIntranetStore.getPermisosPuntualesAcessoByPlate(plate, day);
-            List<AccesoIntranetBean> accesosColectivos = permisoAccesoIntranetStore.getPermisosPuntualesColectivoAcessoByPlate(plate, day, pdc);
-            List<AccesoIntranetBean> accesosParking = permisoAccesoIntranetStore.getPermisosPuntualesParkingAcessoByPlate(plate, day);
 
             accesos = ListUtils.union(accesosEstandar, accesosPuntuales);
-            accesos = ListUtils.union(accesos, accesosColectivos);
-            accesos = ListUtils.union(accesos, accesosParking);
-
         } catch (MyBatisSystemException e) {
             throw  new AccesoDatosException("MyBatisSystemException running getPermisosAccesoByPlate.", e);
         }

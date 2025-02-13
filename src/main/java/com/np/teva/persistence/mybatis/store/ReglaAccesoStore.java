@@ -81,9 +81,8 @@ public interface ReglaAccesoStore {
             "replace(replace(cod_uso::varchar, '{', ''), '}', '') AS tipoUso, " +
             "replace(replace(cod_tipo_servicio::varchar, '{', ''), '}', '') AS tipoServicio, " +
             "'PERMITIDO' AS estadoPerm " +
-            "FROM validacion.ft_rn_excepcion_permiso_acceso " +
-            "WHERE cod_zona in (#{codZona}) "})
-    List<ReglaAccesoBean> findReglasExcepcionByZona(@Param("codZona") int codZona);
+            "FROM validacion.ft_rn_excepcion_permiso_acceso"})
+    List<ReglaAccesoBean> findReglasExcepcion();
 
     @Select({"SELECT des_regla_acceso AS desRegla, " +
             "replace(replace(cod_distintivo_ambiental::varchar, '{', ''), '}', '') AS distintivo, " +
@@ -101,7 +100,6 @@ public interface ReglaAccesoStore {
             "replace(replace(cod_uso::varchar, '{', ''), '}', '') AS tipoUso, " +
             "replace(replace(cod_tipo_servicio::varchar, '{', ''), '}', '') AS tipoServicio, " +
             "'PROHIBIDO' AS estadoPerm " +
-            "FROM validacion.ft_rn_prohibicion_permiso_acceso " +
-            "WHERE cod_zona in (#{codZona}) "})
-    List<ReglaAccesoBean> findReglasProhibicionByZona(@Param("codZona") int codZona);
+            "FROM validacion.ft_rn_prohibicion_permiso_acceso "})
+    List<ReglaAccesoBean> findReglasProhibicion();
 }

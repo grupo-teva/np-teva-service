@@ -56,11 +56,11 @@ public class ReglaAccesoServiceImpl implements ReglaAccesoService {
     }
 
     @Override
-    public List<ReglaAccesoBean> findReglasExcepcionByZona(int codZona) throws AccesoDatosException {
+    public List<ReglaAccesoBean> findReglasExcepcion() throws AccesoDatosException {
         List<ReglaAccesoBean> reglas = null;
 
         try {
-            reglas = reglaAccesoStore.findReglasExcepcionByZona(codZona);
+            reglas = reglaAccesoStore.findReglasExcepcion();
         } catch (MyBatisSystemException e) {
             throw new AccesoDatosException("MyBatisSystemException running findReglasExcepcionByZona.", e);
         }
@@ -69,11 +69,11 @@ public class ReglaAccesoServiceImpl implements ReglaAccesoService {
     }
 
     @Override
-    public List<ReglaAccesoBean> findReglasProhibicionByZona(int codZona) throws AccesoDatosException {
+    public List<ReglaAccesoBean> findReglasProhibicion() throws AccesoDatosException {
         List<ReglaAccesoBean> reglas = null;
 
         try {
-            reglas = reglaAccesoStore.findReglasProhibicionByZona(codZona);
+            reglas = reglaAccesoStore.findReglasProhibicion();
         } catch (MyBatisSystemException e) {
             throw new AccesoDatosException("MyBatisSystemException running findReglasProhibicionByZona.", e);
         }
