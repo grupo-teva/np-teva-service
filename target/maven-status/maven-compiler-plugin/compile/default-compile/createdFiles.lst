@@ -28,8 +28,6 @@ com\np\teva\persistence\mybatis\store\TransitoStore.class
 com\np\teva\service\TransitoService.class
 com\np\teva\service\impl\AccesoPermitidoServiceImpl.class
 com\np\teva\service\impl\VehiculoServiceImpl.class
-com\np\teva\service\impl\ItinerarioServiceImpl.class
-com\np\teva\persistence\mybatis\store\ItinerarioStore.class
 com\np\teva\service\impl\ReglaNegocioServiceImpl.class
 com\np\teva\service\impl\PermisoTransitoServiceImpl.class
 com\np\teva\service\impl\TransitoServiceImpl.class
@@ -44,5 +42,4 @@ com\np\teva\persistence\mybatis\store\VehiculoStore.class
 com\np\teva\persistence\mybatis\store\PeriodoStore.class
 com\np\teva\service\impl\DroolsServiceImpl.class
 com\np\teva\service\impl\PuntoCapturaServiceImpl.class
-com\np\teva\service\ItinerarioService.class
 com\np\teva\service\impl\EstadoRemesaServiceImpl.class

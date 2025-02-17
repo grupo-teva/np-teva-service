@@ -3,7 +3,6 @@ C:\Projects\np-teva-service\src\main\java\com\np\teva\persistence\dao\impl\Audit
 C:\Projects\np-teva-service\src\main\java\com\np\teva\persistence\mybatis\store\AccesoPermitidoStore.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\persistence\mybatis\store\ConstanteStore.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\persistence\mybatis\store\EstadoRemesaStore.java
-C:\Projects\np-teva-service\src\main\java\com\np\teva\persistence\mybatis\store\ItinerarioStore.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\persistence\mybatis\store\PeriodoStore.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\persistence\mybatis\store\PermisoAccesoIntranetStore.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\persistence\mybatis\store\PermisoTransitoStore.java
@@ -24,7 +23,6 @@ C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\AccesoPermiti
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\ConstanteServiceImpl.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\DroolsServiceImpl.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\EstadoRemesaServiceImpl.java
-C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\ItinerarioServiceImpl.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\PeriodoServiceImpl.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\PermisoAccesoIntranetServiceImpl.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\PermisoTransitoServiceImpl.java
@@ -35,7 +33,6 @@ C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\ReglaTransito
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\SancionServiceImpl.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\TransitoServiceImpl.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\VehiculoServiceImpl.java
-C:\Projects\np-teva-service\src\main\java\com\np\teva\service\ItinerarioService.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\PeriodoService.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\PermisoAccesoIntranetService.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\PermisoTransitoService.java

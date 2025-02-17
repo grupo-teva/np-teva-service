@@ -25,7 +25,7 @@ public class ApplicationPropertiesService {
     @Value("${spring.datasource.intranet.username}")
     private String intranetDataSourceUser;
 
-    @Value("${spring.datasource.intranet.pwd}")
+    @Value("${spring.datasource.intranet.password}")
     private String intranetDataSourcePwd;
 
 }

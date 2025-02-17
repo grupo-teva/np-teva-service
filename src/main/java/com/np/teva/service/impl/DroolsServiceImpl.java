@@ -52,9 +52,6 @@ public class DroolsServiceImpl implements DroolsService {
     private PuntoCapturaService puntoCapturaService;
 
     @Autowired
-    private ItinerarioService itinerarioService;
-
-    @Autowired
     private PeriodoService periodoService;
 
     @Autowired
@@ -308,99 +305,6 @@ public class DroolsServiceImpl implements DroolsService {
                             .collect(Collectors.toList());
         }
         return filterAccesoBean;
-    }
-
-
-    private Boolean cumpleItinerario(TransitoBean transito, List<AccesosBean> accesos, VehiculoBean vehiculo) throws AccesoDatosException {
-        Boolean cumple = null;
-        if (vehiculo == null) {
-            return cumple;
-        }
-
-        PuntoCapturaBean pdc = puntoCapturaService.findPDC(transito.getPdc());
-        if (pdc.getCodZona() == ZonaType.CASCO_HISTORICO.getCodZona()) {
-            cumple = isValidItinerario(transito, pdc, accesos);
-            // Motocicletas se libran automáticamente en Casco Histórico
-            if(vehiculo.getTipoIndustria() != null
-                    && (vehiculo.getTipoIndustria().startsWith(TipoVehiculosConstruccion.MOTOCICLETA.getTipoConstruccion())
-                    || vehiculo.getTipoIndustria().startsWith(TipoVehiculosConstruccion.CUATRICICLOS_3_RUEDAS.getTipoConstruccion())
-                    || vehiculo.getTipoIndustria().startsWith(TipoVehiculosConstruccion.CICLOMOTOR.getTipoConstruccion()))){
-                cumple = null;
-                LOG.info("Vehiculo {} es motoclicleta, por lo tanto se libera", transito.getPlate());
-            }
-        }
-
-        return cumple;
-    }
-
-    private boolean isValidItinerario(
-            TransitoBean transitoBean, PuntoCapturaBean pdc, List<AccesosBean> filterAccesoBean)
-            throws AccesoDatosException {
-        List<ItinerarioBean> listaItinerarioGeneral = itinerarioService.findItinerarioByPerfilAndPDC(filterAccesoBean, pdc.getCodGrupoPDC());
-        List<PeriodoBean> periodos = new ArrayList<>();
-        Date fechaTransito = new Date(transitoBean.getTmsTransito().getTime());
-        LocalDate localDate = fechaTransito.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        boolean soloPermisosColectivo = false;
-        Time horaTransito = new Time(transitoBean.getTmsTransito().getTime());
-        Time hora = Time.valueOf(horaTransito.toString());
-
-        if (!filterAccesoBean.isEmpty())
-            soloPermisosColectivo = filterAccesoBean.stream().allMatch(p -> p.getCodColectivo() != null);
-
-        for (AccesosBean perm : filterAccesoBean) {
-            if (perm.getCodColectivo() != null && puntoCapturaService.isGrupoPDCByCodColectivo(perm.getCodColectivo(), pdc.getCodGrupoPDC())) {
-                LOG.info("Vehiculo {} cumple horario y pdc de colectivo {}", transitoBean.getPlate(), perm.getCodColectivo());
-
-                return true;
-            }
-        }
-
-        if (soloPermisosColectivo) {
-            LOG.info("Vehiculo {} NO cumple horario y pdc de colectivo", transitoBean.getPlate());
-            return false;
-        }
-        for (ItinerarioBean itinerarioBean : listaItinerarioGeneral) {
-            periodos = periodoService.findPeriodoByCodPerfil(itinerarioBean.getCodPerfil());
-            for (PeriodoBean periodo : periodos) {
-                if (periodo.getDiaInicio() != null
-                        && periodo.getDiaFin()
-                        != null) { // Si los dias estan informados, entonces no lo estan las fechas
-                    DayOfWeek diaInicio = DayOfWeek.valueOf(periodo.getDiaInicio().toUpperCase());
-                    DayOfWeek diaFin = DayOfWeek.valueOf(periodo.getDiaFin().toUpperCase());
-                    Set<DayOfWeek> diasSemana = EnumSet.range(diaInicio, diaFin);
-                    if (diasSemana.contains(localDate.getDayOfWeek())) {
-                        if (periodo.getHoraInicio() != null && periodo.getHoraFin() != null) {
-                            if (hora.after(periodo.getHoraInicio()) && hora.before(periodo.getHoraFin())) {
-                                LOG.info("X-X Vehiculo {} cumple itinerario {} ", transitoBean.getPlate(), itinerarioBean.getCodItinerario());
-                                return true; // Periodo con dias, con fechas, con horas
-                            }
-                        } else {
-                            LOG.info("X-- Vehiculo {} cumple itinerario {} ", transitoBean.getPlate(), itinerarioBean.getCodItinerario());
-                            return true; // Periodo con dias, con fechas, sin horas
-                        }
-                    }
-                } else {
-                    if (periodo.getFecInicio() != null && periodo.getFecFin() != null) {
-                        if ((fechaTransito.after(periodo.getFecInicio()) && fechaTransito.before(periodo.getFecFin()))
-                                || (fechaTransito.equals(periodo.getFecInicio()) || fechaTransito.equals(periodo.getFecFin()))) {
-                            if (periodo.getHoraInicio() != null && periodo.getHoraFin() != null) {
-                                if (hora.after(periodo.getHoraInicio()) && hora.before(periodo.getHoraFin())) {
-                                    LOG.info("-XX Vehiculo {} cumple itinerario {} ", transitoBean.getPlate(), itinerarioBean.getCodItinerario());
-                                    return true; // Periodo sin dias, con fechas, con horas
-                                }
-                            } else {
-                                LOG.info("-X- Vehiculo {} cumple itinerario {} ", transitoBean.getPlate(), itinerarioBean.getCodItinerario());
-                                return true; // Periodo sin dias, con fechas, sin horas
-                            }
-                        } else {
-                            LOG.info("-X- Vehiculo {} no cumple itinerario {} ", transitoBean.getPlate(), itinerarioBean.getCodItinerario());
-                        }
-                    }
-                }
-            }
-        }
-        LOG.info("Vehiculo {} no cumple ningun itinerario para el grupo pdc {} para el dia {}", transitoBean.getPlate(), pdc.getCodGrupoPDC(), fechaTransito);
-        return false;
     }
 
     private List<ReglaAccesoBean> getReglas(TransitoBean transito) throws AccesoDatosException {
