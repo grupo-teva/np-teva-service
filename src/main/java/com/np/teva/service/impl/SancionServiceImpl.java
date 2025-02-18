@@ -60,14 +60,14 @@ public class SancionServiceImpl implements SancionService {
     }
 
     @Override
-    public int contarSancionesPendientesValidar(Date fec_sancion) throws AccesoDatosException {
+    public int contarSancionesPendientesValidar(Date fec_sancion, int cod_zona) throws AccesoDatosException {
         int total = 0;
         try {
-            total = sancionStore.contarSancionesPendientesValidar(fec_sancion);
+            total = sancionStore.contarSancionesPendientesValidar(fec_sancion, cod_zona);
         } catch (MyBatisSystemException mex) {
-            throw new AccesoDatosException("MyBatisSystemException running contarSancionesEstado", mex);
+            throw new AccesoDatosException("MyBatisSystemException running contarSancionesPendientesValidar", mex);
         } catch (DataAccessException dex) {
-            throw new AccesoDatosException("DataAccessException running contarSancionesEstado", dex);
+            throw new AccesoDatosException("DataAccessException running contarSancionesPendientesValidar", dex);
         }
 
         return total;
@@ -79,9 +79,9 @@ public class SancionServiceImpl implements SancionService {
         try {
             total = sancionStore.contarSancionesPendientesQC(fec_sancion, cod_zona);
         } catch (MyBatisSystemException mex) {
-            throw new AccesoDatosException("MyBatisSystemException running contarSancionesEstado", mex);
+            throw new AccesoDatosException("MyBatisSystemException running contarSancionesPendientesQC", mex);
         } catch (DataAccessException dex) {
-            throw new AccesoDatosException("DataAccessException running contarSancionesEstado", dex);
+            throw new AccesoDatosException("DataAccessException running contarSancionesPendientesQC", dex);
         }
 
         return total;

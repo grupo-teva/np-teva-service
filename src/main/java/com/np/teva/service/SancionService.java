@@ -39,10 +39,11 @@ public interface SancionService {
     /**
      * Obtiene el número de sanciones que quedan pendientes de validar. Usa la vista validacion.v_sancion_nueva_validador_v2.
      * @param fec_sancion Fecha de la remesa para obtener las sanciones pendientes.
+     * @param cod_zona Código de la zona del PDC para obtener las sanciones.
      * @return Entero con el número de sanciones pendientes de validar.
      * @throws AccesoDatosException
      */
-    int contarSancionesPendientesValidar(Date fec_sancion) throws AccesoDatosException;
+    int contarSancionesPendientesValidar(Date fec_sancion, int cod_zona) throws AccesoDatosException;
 
     /**
      * Obtiene el número de sanciones que quedan pendientes de pasar el QC.
