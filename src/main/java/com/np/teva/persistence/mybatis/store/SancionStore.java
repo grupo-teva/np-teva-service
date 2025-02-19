@@ -45,4 +45,23 @@ public interface SancionStore {
             "where cod_transito = #{cod_transito}")
     int updateEstadoRemesada(@Param("cod_transito") UUID cod_transito, @Param("cod_estado") Integer cod_estado, @Param("cod_sistema") Integer cod_sistema);
 
+    @Update("WITH registros_repetidos AS ( " +
+            "SELECT MIN(cod_sancion::varchar) AS ids_excluir, tt.txt_matricula as matriculas " +
+            "FROM t_sancion ts " +
+            "inner join t_transito tt on tt.cod_transito = ts.cod_transito " +
+            "where ts.cod_estado_sancion in (0,5,12) " +
+            "and ts.fec_sancion = #{fec_sancion} " +
+            "GROUP BY tt.txt_matricula " +
+            "HAVING COUNT(*) > 1) " +
+            "UPDATE t_sancion as ts " +
+            "SET cod_estado_sancion  = 4 " +
+            "from t_transito as tt " +
+            "WHERE tt.cod_transito = ts.cod_transito " +
+            "and tt.txt_matricula IN (SELECT matriculas FROM registros_repetidos) " +
+            "AND cod_sancion::varchar not in (SELECT ids_excluir FROM registros_repetidos) " +
+            "and ts.cod_estado_sancion in (0,5,12) " +
+            "and ts.fec_sancion = #{fec_sancion}")
+    int rechazarSancionesDuplicadas(@Param("fec_sancion") Date fec_sancion, @Param("cod_zona") int cod_zona);
+
+
 }
