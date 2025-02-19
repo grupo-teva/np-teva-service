@@ -52,4 +52,13 @@ public interface SancionService {
      * @throws AccesoDatosException
      */
     int contarSancionesPendientesQC(Date fec_sancion, int cod_zona) throws AccesoDatosException;
+
+    /**
+     * Elimina las sanciones reincidentes de la remesa.
+     * @param fec_sancion Fecha de la remesa para obtener las sanciones reincidentes.
+     * @param cod_zona Código de zona. Ver tabla tt_zona.
+     * @return Entero con el número de sanciones en QC pendientes de eliminar.
+     * @throws AccesoDatosException
+     */
+    int rechazarSancionesDuplicadas(Date fec_sancion, int cod_zona) throws AccesoDatosException;
 }

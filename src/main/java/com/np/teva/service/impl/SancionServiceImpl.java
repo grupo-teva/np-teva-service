@@ -86,4 +86,18 @@ public class SancionServiceImpl implements SancionService {
 
         return total;
     }
+
+    @Override
+    public int rechazarSancionesDuplicadas(Date fec_sancion, int cod_zona) throws AccesoDatosException {
+        int total = 0;
+        try {
+            total = sancionStore.rechazarSancionesDuplicadas(fec_sancion, cod_zona);
+        } catch (MyBatisSystemException mex) {
+            throw new AccesoDatosException("MyBatisSystemException running contarSancionesEstado", mex);
+        } catch (DataAccessException dex) {
+            throw new AccesoDatosException("DataAccessException running contarSancionesEstado", dex);
+        }
+
+        return total;
+    }
 }
