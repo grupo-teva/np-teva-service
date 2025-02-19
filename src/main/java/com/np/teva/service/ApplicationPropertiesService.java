@@ -28,4 +28,7 @@ public class ApplicationPropertiesService {
     @Value("${spring.datasource.intranet.password}")
     private String intranetDataSourcePwd;
 
+
+
+
 }

@@ -16,10 +16,12 @@ C:\Projects\np-teva-service\src\main\java\com\np\teva\persistence\mybatis\store\
 C:\Projects\np-teva-service\src\main\java\com\np\teva\persistence\mybatis\typehandler\UUIDTypeHandler.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\AccesoPermitidoService.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\ApplicationPropertiesService.java
+C:\Projects\np-teva-service\src\main\java\com\np\teva\service\ConfigurationService.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\ConstanteService.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\DroolsService.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\EstadoRemesaService.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\AccesoPermitidoServiceImpl.java
+C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\ConfigurationServiceImpl.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\ConstanteServiceImpl.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\DroolsServiceImpl.java
 C:\Projects\np-teva-service\src\main\java\com\np\teva\service\impl\EstadoRemesaServiceImpl.java

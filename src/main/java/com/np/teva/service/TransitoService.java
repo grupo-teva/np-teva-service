@@ -11,6 +11,8 @@ public interface TransitoService {
 
     List<TransitoBean> findTransitosReprocesadoRemesadas(Date fechaSancion) throws AccesoDatosException;
 
+    List<TransitoBean> findTransitosPendientesRemesar(Date fechaSancion, int codigoZona) throws AccesoDatosException;
+
     List<TransitoBean> findTransitosPendientesValidados(Date fechaSancion, int codigoZona) throws AccesoDatosException;
 
     List<TransitoBean> findTransitosPendientesQC(Date fechaSancion, int codigoZona) throws AccesoDatosException;

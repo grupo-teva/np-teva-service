@@ -35,9 +35,11 @@ com\np\teva\persistence\dao\AuditoriaBatchDAO.class
 com\np\teva\persistence\mybatis\store\SancionStore.class
 com\np\teva\service\impl\PeriodoServiceImpl.class
 com\np\teva\service\ReglaAccesoService.class
+com\np\teva\service\impl\ConfigurationServiceImpl.class
 com\np\teva\service\EstadoRemesaService.class
 com\np\teva\persistence\mybatis\store\PermisoAccesoIntranetStore.class
 com\np\teva\service\impl\SancionServiceImpl.class
+com\np\teva\service\ConfigurationService.class
 com\np\teva\persistence\mybatis\store\VehiculoStore.class
 com\np\teva\persistence\mybatis\store\PeriodoStore.class
 com\np\teva\service\impl\DroolsServiceImpl.class

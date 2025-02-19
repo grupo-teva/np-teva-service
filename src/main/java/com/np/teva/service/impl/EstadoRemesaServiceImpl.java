@@ -20,6 +20,19 @@ public class EstadoRemesaServiceImpl implements EstadoRemesaService {
     private EstadoRemesaStore estadoRemesaStore;
 
     @Override
+    public EstadoRemesaBean findEstadoRemesa(int codigoZona, Date fechaSancion) throws AccesoDatosException {
+        EstadoRemesaBean estado = null;
+        try {
+            estado = estadoRemesaStore.findRemesa(codigoZona, fechaSancion);
+        } catch (MyBatisSystemException mex) {
+            throw new AccesoDatosException("MyBatisSystemException running findRemesasByEstado.", mex);
+        } catch (DataAccessException dex) {
+            throw new AccesoDatosException("DataAccessException running findRemesasByEstado.", dex);
+        }
+        return estado;
+    }
+
+    @Override
     public List<EstadoRemesaBean> findRemesasByEstado(int codigoEstado, int codigoZona) throws AccesoDatosException {
         List<EstadoRemesaBean> estados = new ArrayList<>();
 
@@ -58,6 +71,18 @@ public class EstadoRemesaServiceImpl implements EstadoRemesaService {
             throw new AccesoDatosException("MyBatisSystemException running updateEstadoRemesa.", mex);
         } catch (DataAccessException dex) {
             throw new AccesoDatosException("DataAccessException running updateEstadoRemesa.", dex);
+        }
+    }
+
+    @Override
+    public boolean insertEstadoRemesa(EstadoRemesaBean estadoRemesa) throws AccesoDatosException {
+        try {
+            estadoRemesaStore.insertEstadoRemesa(estadoRemesa);
+            return true;
+        } catch (MyBatisSystemException mex){
+            throw new AccesoDatosException("MyBatisSystemException running insertEstadoRemesa.", mex);
+        } catch (DataAccessException dex) {
+            throw new AccesoDatosException("DataAccessException running insertEstadoRemesa.", dex);
         }
     }
 }
