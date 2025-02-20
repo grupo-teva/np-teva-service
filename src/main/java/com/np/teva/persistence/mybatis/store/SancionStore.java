@@ -47,15 +47,15 @@ public interface SancionStore {
 
     @Update("WITH registros_repetidos AS ( " +
             "SELECT MIN(cod_sancion::varchar) AS ids_excluir, tt.txt_matricula as matriculas " +
-            "FROM t_sancion ts " +
-            "inner join t_transito tt on tt.cod_transito = ts.cod_transito " +
+            "FROM validacion.t_sancion ts " +
+            "inner join validacion.t_transito tt on tt.cod_transito = ts.cod_transito " +
             "where ts.cod_estado_sancion in (0,5,12) " +
             "and ts.fec_sancion = #{fec_sancion} " +
             "GROUP BY tt.txt_matricula " +
             "HAVING COUNT(*) > 1) " +
-            "UPDATE t_sancion as ts " +
+            "UPDATE validacion.t_sancion as ts " +
             "SET cod_estado_sancion  = 4 " +
-            "from t_transito as tt " +
+            "from validacion.t_transito as tt " +
             "WHERE tt.cod_transito = ts.cod_transito " +
             "and tt.txt_matricula IN (SELECT matriculas FROM registros_repetidos) " +
             "AND cod_sancion::varchar not in (SELECT ids_excluir FROM registros_repetidos) " +

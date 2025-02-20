@@ -19,14 +19,14 @@ public class ApplicationPropertiesService {
     //@Value("${drools.nombremunicipio}")
     //private String nombreMunicipio;
 
-    @Value("${spring.datasource.intranet.url}")
-    private String intranetDataSourceUrl;
+    //@Value("${spring.datasource.intranet.url}")
+    //private String intranetDataSourceUrl;
 
-    @Value("${spring.datasource.intranet.username}")
-    private String intranetDataSourceUser;
+    //@Value("${spring.datasource.intranet.username}")
+    //private String intranetDataSourceUser;
 
-    @Value("${spring.datasource.intranet.password}")
-    private String intranetDataSourcePwd;
+    //@Value("${spring.datasource.intranet.password}")
+    //private String intranetDataSourcePwd;
 
 
 

@@ -49,7 +49,7 @@ public interface EstadoRemesaStore {
     })
     List<EstadoRemesaBean> findRemesasByEstadoFecha(@Param("cod_estado") int cod_estado, @Param("cod_zona") int cod_zona, @Param("fec_sancion") Date fec_sancion);
 
-    @Insert("INSERT into t_estado_remesa(cod_zona, fec_sancion, cod_estado_remesa, tms_update, cod_usuario) " +
+    @Insert("INSERT into validacion.t_estado_remesa(cod_zona, fec_sancion, cod_estado_remesa, tms_update, cod_usuario) " +
             "VALUES (#{codigoZona}, #{fechaSancion}, #{codigoEstadoRemesa}, #{fechaActualizacion}, #{codigoUsuario})")
     void insertEstadoRemesa(EstadoRemesaBean estadoRemesa);
 
