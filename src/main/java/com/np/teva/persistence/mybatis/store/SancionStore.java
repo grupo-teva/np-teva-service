@@ -46,4 +46,25 @@ public interface SancionStore {
             "where cod_transito = #{cod_transito}")
     int updateEstadoRemesada(@Param("cod_transito") UUID cod_transito, @Param("cod_estado") Integer cod_estado, @Param("cod_sistema") Integer cod_sistema);
 
+    @Update("WITH registros_repetidos AS ( " +
+            "SELECT MIN(cod_sancion::varchar) AS ids_excluir, tt.txt_matricula as matriculas " +
+            "FROM validacion.t_sancion ts " +
+            "inner join validacion.t_transito tt on tt.cod_transito = ts.cod_transito " +
+            "inner join t_punto_captura tpc on tpc.cod_pdc = tt.cod_pdc " +
+            "where ts.cod_estado_sancion in (0,5,12) " +
+            "and ts.fec_sancion = #{fec_sancion} " +
+            "and tpc.cod_zona = #{cod_zona} " +
+            "GROUP BY tt.txt_matricula " +
+            "HAVING COUNT(*) > 1) " +
+            "UPDATE validacion.t_sancion as ts " +
+            "SET cod_estado_sancion  = 4 " +
+            "from validacion.t_transito as tt " +
+            "inner join t_punto_captura tpc on tpc.cod_pdc = tt.cod_pdc " +
+            "WHERE tt.cod_transito = ts.cod_transito " +
+            "and tt.txt_matricula IN (SELECT matriculas FROM registros_repetidos) " +
+            "AND cod_sancion::varchar not in (SELECT ids_excluir FROM registros_repetidos) " +
+            "and ts.cod_estado_sancion in (0,5,12) " +
+            "and ts.fec_sancion = #{fec_sancion} " +
+            "and tpc.cod_zona = #{cod_zona}")
+    int rechazarSancionesDuplicadas(@Param("fec_sancion") Date fec_sancion, @Param("cod_zona") int cod_zona);
 }
