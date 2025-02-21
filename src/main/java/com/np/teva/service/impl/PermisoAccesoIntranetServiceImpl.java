@@ -24,7 +24,7 @@ public class PermisoAccesoIntranetServiceImpl implements PermisoAccesoIntranetSe
         List<AccesoIntranetBean> accesos = Collections.emptyList();
 
         try {
-            List<AccesoIntranetBean> accesosEstandar = permisoAccesoIntranetStore.getPermisosAcessoByPlate(plate, day.toLocalDateTime().toLocalDate());
+            List<AccesoIntranetBean> accesosEstandar = permisoAccesoIntranetStore.getPermisosAcessoByPlate(plate, day);
             List<AccesoIntranetBean> accesosPuntuales = permisoAccesoIntranetStore.getPermisosPuntualesAcessoByPlate(plate, day);
             List<AccesoIntranetBean> accesosColectivos = permisoAccesoIntranetStore.getPermisosPuntualesColectivoAcessoByPlate(plate, day, pdc);
             List<AccesoIntranetBean> accesosParking = permisoAccesoIntranetStore.getPermisosPuntualesParkingAcessoByPlate(plate, day);
