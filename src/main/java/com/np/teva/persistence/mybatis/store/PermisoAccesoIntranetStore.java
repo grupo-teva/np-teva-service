@@ -37,7 +37,7 @@ public interface PermisoAccesoIntranetStore {
             + "     AND ftp.cod_estado_perm in (1, 2, 4, 6) "
             + "     and ftp.fec_inicio <=  #{dia} "
             + "     and (COALESCE(ftp.fec_fin, #{dia}::date) >= #{dia} )")
-    List<AccesoIntranetBean> getPermisosAcessoByPlate(@Param("matricula") String matricula, @Param("dia") LocalDate dia);
+    List<AccesoIntranetBean> getPermisosAcessoByPlate(@Param("matricula") String matricula, @Param("dia") Timestamp dia);
 
     @Select("select ftp.txt_matricula as plate "
             + " , ftp.cod_tipo_perm as tipoPermiso "

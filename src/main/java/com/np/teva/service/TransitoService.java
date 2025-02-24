@@ -7,9 +7,11 @@ import java.util.Date;
 import java.util.List;
 
 public interface TransitoService {
+    List<TransitoBean> findTransitosReprocesado(Date fechaSancion, int codigoZona) throws AccesoDatosException;
+
     List<TransitoBean> findTransitosReprocesado(Date fechaSancion) throws AccesoDatosException;
 
-    List<TransitoBean> findTransitosReprocesadoRemesadas(Date fechaSancion) throws AccesoDatosException;
+    List<TransitoBean> findTransitosReprocesadoRemesadas(Date fechaSancion, int codigoZona) throws AccesoDatosException;
 
     List<TransitoBean> findTransitosPendientesValidados(Date fechaSancion, int codigoZona) throws AccesoDatosException;
 

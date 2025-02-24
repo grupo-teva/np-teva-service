@@ -24,7 +24,22 @@ public class EstadoRemesaServiceImpl implements EstadoRemesaService {
         List<EstadoRemesaBean> estados = new ArrayList<>();
 
         try {
-            estados = estadoRemesaStore.findRemesasByEstado(codigoEstado, codigoZona);
+            estados = estadoRemesaStore.findRemesasByEstadoZona(codigoEstado, codigoZona);
+        } catch (MyBatisSystemException mex) {
+            throw new AccesoDatosException("MyBatisSystemException running findRemesasByEstado.", mex);
+        } catch (DataAccessException dex) {
+            throw new AccesoDatosException("DataAccessException running findRemesasByEstado.", dex);
+        }
+
+        return estados;
+    }
+
+    @Override
+    public List<EstadoRemesaBean> findRemesasByEstado(int codigoEstado) throws AccesoDatosException {
+        List<EstadoRemesaBean> estados = new ArrayList<>();
+
+        try {
+            estados = estadoRemesaStore.findRemesasByEstado(codigoEstado);
         } catch (MyBatisSystemException mex) {
             throw new AccesoDatosException("MyBatisSystemException running findRemesasByEstado.", mex);
         } catch (DataAccessException dex) {
