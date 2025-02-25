@@ -51,7 +51,7 @@ public interface SancionStore {
             "FROM validacion.t_sancion ts " +
             "inner join validacion.t_transito tt on tt.cod_transito = ts.cod_transito " +
             "inner join t_punto_captura tpc on tpc.cod_pdc = tt.cod_pdc " +
-            "where ts.cod_estado_sancion in (0,5,12) " +
+            "where ts.cod_estado_sancion in (0, 5, 12, 17) " +
             "and ts.fec_sancion = #{fec_sancion} " +
             "and tpc.cod_zona = #{cod_zona} " +
             "GROUP BY tt.txt_matricula " +
@@ -63,7 +63,7 @@ public interface SancionStore {
             "WHERE tt.cod_transito = ts.cod_transito " +
             "and tt.txt_matricula IN (SELECT matriculas FROM registros_repetidos) " +
             "AND cod_sancion::varchar not in (SELECT ids_excluir FROM registros_repetidos) " +
-            "and ts.cod_estado_sancion in (0,5,12) " +
+            "and ts.cod_estado_sancion in (0, 5, 12, 17) " +
             "and ts.fec_sancion = #{fec_sancion} " +
             "and tpc.cod_zona = #{cod_zona}")
     int rechazarSancionesDuplicadas(@Param("fec_sancion") Date fec_sancion, @Param("cod_zona") int cod_zona);

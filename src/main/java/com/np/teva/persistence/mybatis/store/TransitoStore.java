@@ -141,7 +141,7 @@ public interface TransitoStore {
             "from validacion.t_transito t " +
             "inner join validacion.t_sancion s on s.cod_transito = t.cod_transito " +
             "inner join validacion.t_punto_captura pc on pc.cod_pdc = t.cod_pdc " +
-            "where s.cod_estado_sancion in (5, 12) " +
+            "where s.cod_estado_sancion in (5, 12, 17) " +
             "and s.fec_sancion = #{fechaSancion} " +
             "and pc.cod_zona = #{codigoZona} " +
             "order by s.fec_sancion;"})
