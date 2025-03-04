@@ -11,7 +11,9 @@ public interface EstadoRemesaService {
 
     EstadoRemesaBean findEstadoRemesa(int codigoZona, Date fechaSancion) throws AccesoDatosException;
 
-    List<EstadoRemesaBean> findRemesasByEstado(int codigoEstado, int codigoZona) throws AccesoDatosException;
+    List<EstadoRemesaBean> findRemesasByEstado(int codigoEstado) throws AccesoDatosException;
+
+    List<EstadoRemesaBean> findRemesasByEstadoZona(int codigoEstado, int codigoZona) throws AccesoDatosException;
 
     List<EstadoRemesaBean> findRemesasByEstadoFecha(int cod_estado, int cod_zona, Date fec_sancion) throws AccesoDatosException;
 

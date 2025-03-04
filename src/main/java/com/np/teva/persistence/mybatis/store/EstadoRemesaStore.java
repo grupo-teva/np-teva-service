@@ -34,7 +34,19 @@ public interface EstadoRemesaStore {
             @Result(property = "fechaActualizacion", column = "tms_update"),
             @Result(property = "codigoUsuario", column = "cod_usuario")
     })
-    List<EstadoRemesaBean> findRemesasByEstado(@Param("cod_estado") int cod_estado, @Param("cod_zona") int cod_zona);
+    List<EstadoRemesaBean> findRemesasByEstadoZona(@Param("cod_estado") int cod_estado, @Param("cod_zona") int cod_zona);
+
+    @Select("select es.cod_zona, es.fec_sancion, es.cod_estado_remesa, es.tms_update, es.cod_usuario " +
+            "from validacion.t_estado_remesa es " +
+            "where es.cod_estado_remesa = #{cod_estado}")
+    @Results(value = {
+            @Result(property = "codigoZona", column = "cod_zona"),
+            @Result(property = "fechaSancion", column = "fec_sancion"),
+            @Result(property = "codigoEstadoRemesa", column = "cod_estado_remesa"),
+            @Result(property = "fechaActualizacion", column = "tms_update"),
+            @Result(property = "codigoUsuario", column = "cod_usuario")
+    })
+    List<EstadoRemesaBean> findRemesasByEstado(@Param("cod_estado") int cod_estado);
 
     @Select("select es.cod_zona, es.fec_sancion, es.cod_estado_remesa, es.tms_update, es.cod_usuario " +
             "from validacion.t_estado_remesa es " +
