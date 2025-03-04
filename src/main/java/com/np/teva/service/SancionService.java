@@ -61,4 +61,15 @@ public interface SancionService {
      * @throws AccesoDatosException
      */
     int rechazarSancionesDuplicadas(Date fec_sancion, int cod_zona) throws AccesoDatosException;
+
+    /**
+     * Cambia el estado de las sanciones nuevas al estado castigado.
+     * @param fec_sancion Fecha de la sanción.
+     * @param cod_zona Código de la zona. Ver tabla tt_zona.
+     * @param cod_estado_nuevo Codigo de estado de las sanciones nuevas.
+     * @param cod_estado_castigado Código de estado de las sanciones castigadas.
+     * @return Entero con el número de sanciones modificadas.
+     * @throws AccesoDatosException
+     */
+    int castigarSancionesNuevas(Date fec_sancion, int cod_zona, int cod_estado_nuevo, int cod_estado_castigado) throws AccesoDatosException;
 }

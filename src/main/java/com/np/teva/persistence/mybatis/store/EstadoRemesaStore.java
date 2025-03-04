@@ -25,7 +25,8 @@ public interface EstadoRemesaStore {
     @Select("select es.cod_zona, es.fec_sancion, es.cod_estado_remesa, es.tms_update, es.cod_usuario " +
             "from validacion.t_estado_remesa es " +
             "where es.cod_estado_remesa = #{cod_estado} " +
-            "and es.cod_zona = #{cod_zona}")
+            "and es.cod_zona = #{cod_zona} " +
+            "order by es.fec_sancion")
     @Results(value = {
             @Result(property = "codigoZona", column = "cod_zona"),
             @Result(property = "fechaSancion", column = "fec_sancion"),

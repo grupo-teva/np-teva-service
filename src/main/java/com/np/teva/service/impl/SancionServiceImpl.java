@@ -7,6 +7,7 @@ import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.Date;
 import java.util.UUID;
@@ -15,7 +16,7 @@ import java.util.UUID;
 public class SancionServiceImpl implements SancionService {
 
     @Autowired
-    public SancionStore sancionStore;
+    private SancionStore sancionStore;
 
     @Override
     public int contarSancionesEstado(Date fechaSancion, int codigoEstadoSancion) throws AccesoDatosException {
@@ -96,6 +97,20 @@ public class SancionServiceImpl implements SancionService {
             throw new AccesoDatosException("MyBatisSystemException running contarSancionesEstado", mex);
         } catch (DataAccessException dex) {
             throw new AccesoDatosException("DataAccessException running contarSancionesEstado", dex);
+        }
+
+        return total;
+    }
+
+    @Override
+    public int castigarSancionesNuevas(Date fec_sancion, int cod_zona, int cod_estado_nuevo, int cod_estado_castigado) throws AccesoDatosException {
+        int total = 0;
+        try {
+            total = sancionStore.castigarSancionesNuevas(fec_sancion, cod_zona, cod_estado_nuevo, cod_estado_castigado);
+        } catch (MyBatisSystemException mex) {
+            throw new AccesoDatosException("MyBatisSystemException running castigarSancionesNuevas", mex);
+        } catch (DataAccessException dex) {
+            throw new AccesoDatosException("DataAccessException running castigarSancionesNuevas", dex);
         }
 
         return total;
