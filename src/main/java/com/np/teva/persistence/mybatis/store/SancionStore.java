@@ -19,8 +19,9 @@ public interface SancionStore {
 
     @Select("SELECT COUNT(*) " +
             "FROM validacion.v_sancion_nueva_validador_v2 " +
-            "WHERE fec_sancion = #{fec_sancion}")
-    int contarSancionesPendientesValidar(@Param("fec_sancion") Date fec_sancion);
+            "WHERE fec_sancion = #{fec_sancion} " +
+            "and cod_zona = #{cod_zona}")
+    int contarSancionesPendientesValidar(@Param("fec_sancion") Date fec_sancion, @Param("cod_zona") int codigoZona);
 
     @Select("select count(*) " +
             "from validacion.t_control_calidad_sancion cc " +

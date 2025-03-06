@@ -61,10 +61,10 @@ public class SancionServiceImpl implements SancionService {
     }
 
     @Override
-    public int contarSancionesPendientesValidar(Date fec_sancion) throws AccesoDatosException {
+    public int contarSancionesPendientesValidar(Date fec_sancion, int codigoZona) throws AccesoDatosException {
         int total = 0;
         try {
-            total = sancionStore.contarSancionesPendientesValidar(fec_sancion);
+            total = sancionStore.contarSancionesPendientesValidar(fec_sancion, codigoZona);
         } catch (MyBatisSystemException mex) {
             throw new AccesoDatosException("MyBatisSystemException running contarSancionesEstado", mex);
         } catch (DataAccessException dex) {
