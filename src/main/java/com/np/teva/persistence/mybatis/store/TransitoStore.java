@@ -96,7 +96,6 @@ public interface TransitoStore {
             "inner join validacion.t_punto_captura pc on pc.cod_pdc = t.cod_pdc " +
             "where s.cod_estado_sancion in (0) " +
             "and s.fec_sancion = #{fechaSancion} " +
-            "and pc.cod_zona = #{codigoZona} " +
             "order by s.fec_sancion;"})
     @Results(value = {
             @Result(property = "id", column = "cod_transito", javaType = UUID.class, jdbcType = JdbcType.OTHER, typeHandler = com.np.teva.persistence.mybatis.typehandler.UUIDTypeHandler.class),
@@ -111,7 +110,7 @@ public interface TransitoStore {
             @Result(property = "imagesPath", column = "txt_ruta_imagenes"),
             @Result(property = "pteImporter", column = "ind_pte_importer")
     })
-    List<TransitoBean> findTransitosReprocesado(@Param("fechaSancion") Date fechaSancion, @Param("codigoZona") int codigoZona);
+    List<TransitoBean> findTransitosReprocesado(@Param("fechaSancion") Date fechaSancion);
 
     @Select({"SELECT t.cod_transito, t.cod_captura, t.tms_transito, t.cod_pdc, t.txt_matricula, t.txt_matricula_leida, t.cod_tipo_transito, " +
             "t.cod_estado_importacion, t.ind_entrada, t.txt_ruta_imagenes, t.ind_pte_importer " +

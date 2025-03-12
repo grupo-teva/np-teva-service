@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="269ca3a5-7535-4e23-97d9-e0916ed3a6bf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/np/teva/service/AuditoriaBatchDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/np/teva/service/impl/AuditoriaBatchDAOImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/np/teva/service/impl/Configuracion.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/np/teva/service/impl/DatabaseHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/np-teva-service.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/np/teva/persistence/dao/AuditoriaBatchDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/np/teva/persistence/dao/impl/AuditoriaBatchDAOImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/np/teva/persistence/mybatis/store/PermisoAccesoIntranetStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/np/teva/persistence/mybatis/store/PermisoAccesoIntranetStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/np/teva/persistence/mybatis/store/TransitoStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/np/teva/persistence/mybatis/store/TransitoStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/np/teva/service/AuditoriaBatchDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/np/teva/service/AuditoriaBatchService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/np/teva/service/TransitoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/np/teva/service/TransitoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/np/teva/service/impl/AuditoriaBatchDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/np/teva/service/impl/AuditoriaBatchServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/np/teva/service/impl/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/np/teva/service/impl/DatabaseHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/np/teva/service/impl/TransitoServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/np/teva/service/impl/TransitoServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +60,7 @@
     "Maven.np-teva-service [site].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "fuenlabrada-auditoria-batch",
+    "git-widget-placeholder": "fuenlabrada-local",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Projects/np-validador-transitos",
     "node.js.detected.package.eslint": "true",
@@ -68,6 +68,9 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "reference.settings.project.maven.importing",
     "vue.rearranger.settings.migration": "true"
   }

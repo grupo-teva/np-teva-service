@@ -15,13 +15,11 @@ public interface PermisoAccesoIntranetStore {
             + " , ftp.cod_tipo_perm as tipoPermiso "
             + " , ftp.cod_subcond_aut as condicionSubautorizadora "
             + " , ftp.cod_permiso as permiso  "
-            + " , ftp.cod_colectivo as codColectivo "
             + " from validacion.ft_permiso_acceso_intranet ftp  "
             + " where ftp.txt_matricula = #{matricula} "
-            + "     AND (ftp.cod_tipo_perm = 1 or ftp.cod_tipo_perm = 8) "
-            + "     AND (ftp.cod_colectivo is null and ftp.cod_parking is null) "
-            + "     AND ftp.cod_estado_perm in (1, 2, 4, 6) "
-            + "     AND ftp.fec_inicio <= #{dia} AND ftp.fec_fin >= #{dia} ")
+            + "     AND ftp.cod_estado_perm in (1,2,4,6) "
+            + "      AND (ftp.cod_tipo_perm = 1 or  ftp.cod_tipo_perm = 8) "
+            + "     AND ftp.fec_inicio = #{dia} ")
     List<AccesoIntranetBean> getPermisosPuntualesAcessoByPlate(@Param("matricula") String matricula, @Param("dia") Timestamp dia);
 
     @Select("select ftp.txt_matricula as plate "

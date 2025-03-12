@@ -1,6 +1,5 @@
 package com.np.teva.service.impl;
 
-import com.np.teva.service.impl.Configuracion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
