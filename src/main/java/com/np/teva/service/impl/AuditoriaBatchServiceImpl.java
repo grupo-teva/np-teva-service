@@ -2,14 +2,14 @@ package com.np.teva.service.impl;
 
 import com.np.teva.core.bean.AuditoriaBatchBean;
 import com.np.teva.core.exception.AccesoDatosException;
-import com.np.teva.service.AuditoriaBatchDAO;
+import com.np.teva.service.AuditoriaBatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
 
 @Service
-public class AuditoriaBatchDAOImpl implements AuditoriaBatchDAO {
+public class AuditoriaBatchServiceImpl implements AuditoriaBatchService {
 
     @Autowired
     private DatabaseHandler databaseHandler;

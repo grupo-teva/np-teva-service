@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 @Service
 public class DroolsServiceImpl implements DroolsService {
 
-    private static String nombreMunicipio = "Fuenlabrada";
+    private static String nombreMunicipio = "Valladolid";
 
     private static Logger LOG = LoggerFactory.getLogger(DroolsServiceImpl.class);
 
