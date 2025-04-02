@@ -1,5 +1,6 @@
 # Carpeta
 target
+.idea
 
 # Compiled class file
 *.class
