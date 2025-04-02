@@ -26,3 +26,4 @@ target
 hs_err_pid*
 replay_pid*
 target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+.idea/workspace.xml

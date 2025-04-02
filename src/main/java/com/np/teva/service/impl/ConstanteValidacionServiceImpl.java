@@ -2,14 +2,14 @@ package com.np.teva.service.impl;
 
 import com.np.teva.core.exception.AccesoDatosException;
 import com.np.teva.persistence.mybatis.store.ConstanteStore;
-import com.np.teva.service.ConstanteService;
+import com.np.teva.service.ConstanteValidacionService;
 import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ConstanteServiceImpl implements ConstanteService {
+public class ConstanteValidacionServiceImpl implements ConstanteValidacionService {
     @Autowired
     private ConstanteStore constanteStore;
 
