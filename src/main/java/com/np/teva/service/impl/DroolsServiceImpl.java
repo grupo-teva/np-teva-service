@@ -3,8 +3,6 @@ package com.np.teva.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.np.teva.core.bean.*;
 import com.np.teva.core.enumeration.SubCondicionAutorizadora;
-import com.np.teva.core.enumeration.TipoVehiculosConstruccion;
-import com.np.teva.core.enumeration.ZonaType;
 import com.np.teva.core.exception.AccesoDatosException;
 import com.np.teva.core.exception.DroolsException;
 import com.np.teva.service.*;
@@ -19,11 +17,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.sql.Time;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -47,18 +42,6 @@ public class DroolsServiceImpl implements DroolsService {
 
     @Autowired
     private VehiculoService vehiculoService;
-
-    @Autowired
-    private PuntoCapturaService puntoCapturaService;
-
-    @Autowired
-    private PeriodoService periodoService;
-
-    @Autowired
-    private AccesoPermitidoService accesoPermitidoService;
-
-    @Autowired
-    private PermisoAccesoIntranetService permisoAccesoIntranetService;
 
     @Autowired
     private ReglaAccesoService reglaAccesoService;
@@ -192,22 +175,6 @@ public class DroolsServiceImpl implements DroolsService {
         }
         return reglaNegocio;
     }
-
-    /* TODO: Ver si es conveniente que este método esté aquí. La lista de accesos se usa en el servicio llamador para asociar los permisos al tránsito
-    private List<AccesosBean> getAccesos(TransitoBean transito) throws AccesoDatosException {
-        List<AccesosBean> accesos = new ArrayList<>();
-
-        List<AccesosBean> accesosPermitidos = accesoPermitidoService.findAccesosByPlate(transito);
-        List<AccesosBean> accesosPermitidosFilter = filterByTime(accesosPermitidos, transito.getTmsTransito().toLocalDateTime().toLocalTime());
-
-        List<AccesoIntranetBean> accesosIntranet = permisoAccesoIntranetService.getPermisosAcessoByPlate(transito.getPlate(), transito.getTmsTransito(), transito.getPdc());
-        List<AccesosBean> accesosBeanIntranet = createbyAccesoIntranetBean(accesosIntranet, transito.getTmsTransito().toLocalDateTime().toLocalDate());
-
-        accesos = addOnlyNewAccesosBean(accesosPermitidosFilter, accesosBeanIntranet);
-
-        return accesos;
-    }
-    */
 
     private List<AccesosBean> createbyAccesoIntranetBean(
             List<AccesoIntranetBean> accesoIntranetBeanList, LocalDate day) {
