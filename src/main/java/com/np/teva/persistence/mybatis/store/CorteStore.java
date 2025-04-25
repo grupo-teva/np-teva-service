@@ -16,17 +16,17 @@ import java.util.UUID;
 public interface CorteStore {
 
     @Select("select id_corte as id, fec_ini as tmsInicio, fec_fin as tmsFin "
-            + " from t_corte where fec_ini <= #{fin} "
+            + " from validacion.t_corte where fec_ini <= #{fin} "
             + " and fec_fin >= #{ini} ")
     List<CorteBean> getAllCortesByDay(@Param("ini") Timestamp ini, @Param("fin") Timestamp fin);
 
     @Select("select cod_pdc "
-            + "from t_corte_camara where id_corte = #{corte} ")
+            + "from validacion.t_corte_camara where id_corte = #{corte} ")
     List<Integer> getAllPdcsByCorte(@Param("corte") int corte);
 
     @Select("select ts.cod_sancion, ts.cod_transito " +
-            "from t_sancion ts " +
-            "inner join t_transito tt on tt.cod_transito = ts.cod_transito " +
+            "from validacion.t_sancion ts " +
+            "inner join validacion.t_transito tt on tt.cod_transito = ts.cod_transito " +
             "where ts.fec_sancion = #{fecha} " +
             "and tt.cod_pdc = #{pdc} " +
             "and tt.tms_transito >= #{inicio} " +
@@ -50,7 +50,7 @@ public interface CorteStore {
             "where cod_transito = #{cod_transito}")
     void updateTransitoCorte(@Param("cod_transito") UUID cod_transito, @Param("cod_estado") Integer cod_estado, @Param("cod_sistema") Integer cod_sistema);
 
-    @Insert("insert into t_corte_transito (cod_transito, cod_corte) values (#{transitoId}::uuid, #{corte})")
+    @Insert("insert into validacion.t_corte_transito (cod_transito, cod_corte) values (#{transitoId}::uuid, #{corte})")
     void insertCorteTransito(@Param("transitoId") UUID transitoId, @Param("corte") int corte);
 
 }

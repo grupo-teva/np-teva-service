@@ -2,7 +2,7 @@ package com.np.teva.service;
 
 import com.np.teva.core.exception.AccesoDatosException;
 
-public interface ConstanteService {
+public interface ConstanteValidacionService {
 
     int getConstanteAsInt(String descripcionConstante) throws AccesoDatosException;
 
