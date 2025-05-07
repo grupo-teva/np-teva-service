@@ -11,6 +11,12 @@ import java.util.UUID;
 @Mapper
 public interface TransitoStore {
 
+    /**
+     * Selecciona las sanciones en estado 5 para comprobar si ha cambiado la matrícula. No seleccionamos las sanciones en estado 12 para evitar descartarlos previamente a que el agente sancionador lo revise. En cualquier caso, se descartará en QC.
+     * @param fec_sancion Fecha de la sanción
+     * @param cod_zona Identificador de la zona de la remesa
+     * @return Lista de objetos TransitoBean con las sanciones a remesar.
+     */
     @Select({"SELECT t.cod_transito, t.cod_captura, t.tms_transito, t.cod_pdc, t.txt_matricula, t.txt_matricula_leida, t.cod_tipo_transito, " +
             "t.cod_estado_importacion, t.ind_entrada, t.txt_ruta_imagenes, t.ind_pte_importer " +
             "from validacion.t_transito t " +
@@ -36,6 +42,12 @@ public interface TransitoStore {
     })
     List<TransitoBean> findTransitosPendientesValidacion(@Param("fec_sancion") Date fec_sancion, @Param("cod_zona") int cod_zona);
 
+    /**
+     *
+     * @param fec_sancion
+     * @param cod_zona
+     * @return
+     */
     @Select({"SELECT t.cod_transito, t.cod_captura, t.tms_transito, t.cod_pdc, t.txt_matricula, t.txt_matricula_leida, t.cod_tipo_transito, " +
             "t.cod_estado_importacion, t.ind_entrada, t.txt_ruta_imagenes, t.ind_pte_importer " +
             "from validacion.t_transito t " +
