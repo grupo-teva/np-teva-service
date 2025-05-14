@@ -20,6 +20,19 @@ public class EstadoRemesaServiceImpl implements EstadoRemesaService {
     private EstadoRemesaStore estadoRemesaStore;
 
     @Override
+    public EstadoRemesaBean findEstadoRemesa(int codigoZona, Date fechaSancion) throws AccesoDatosException {
+        EstadoRemesaBean estado = null;
+        try {
+            estado = estadoRemesaStore.findRemesa(codigoZona, fechaSancion);
+        } catch (MyBatisSystemException mex) {
+            throw new AccesoDatosException("MyBatisSystemException running findRemesasByEstado.", mex);
+        } catch (DataAccessException dex) {
+            throw new AccesoDatosException("DataAccessException running findRemesasByEstado.", dex);
+        }
+        return estado;
+    }
+
+    @Override
     public List<EstadoRemesaBean> findRemesasByEstado(int codigoEstado, int codigoZona) throws AccesoDatosException {
         List<EstadoRemesaBean> estados = new ArrayList<>();
 

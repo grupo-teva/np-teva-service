@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface EstadoRemesaService {
 
+    EstadoRemesaBean findEstadoRemesa(int codigoZona, Date fechaSancion) throws AccesoDatosException;
+
     List<EstadoRemesaBean> findRemesasByEstado(int codigoEstado, int codigoZona) throws AccesoDatosException;
 
     List<EstadoRemesaBean> findRemesasByEstado(int codigoEstado) throws AccesoDatosException;

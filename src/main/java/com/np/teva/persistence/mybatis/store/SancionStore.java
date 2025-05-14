@@ -28,8 +28,9 @@ public interface SancionStore {
             "inner join validacion.t_sancion s on s.cod_sancion = cc.cod_sancion " +
             "inner join validacion.t_transito t on t.cod_transito = s.cod_transito " +
             "inner join validacion.t_punto_captura pc on pc.cod_pdc = t.cod_pdc " +
+            "inner join validacion.t_grupo_pdc gc on gc.cod_grupo_pdc = pc.cod_grupo_pdc " +
             "where cc.fec_sancion = #{fec_sancion} " +
-            "and pc.cod_zona = #{cod_zona} " +
+            "and gc.cod_zona = #{cod_zona} " +
             "and cc.cod_resultado = 0 ")
     int contarSancionesPendientesQC(@Param("fec_sancion") Date fec_sancion, @Param("cod_zona") int cod_zona);
 
@@ -51,30 +52,33 @@ public interface SancionStore {
             "FROM validacion.t_sancion ts " +
             "inner join validacion.t_transito tt on tt.cod_transito = ts.cod_transito " +
             "inner join t_punto_captura tpc on tpc.cod_pdc = tt.cod_pdc " +
+            "inner join validacion.t_grupo_pdc tgp on tgp.cod_grupo_pdc = tpc.cod_grupo_pdc " +
             "where ts.cod_estado_sancion in (0, 5, 12, 17) " +
             "and ts.fec_sancion = #{fec_sancion} " +
-            "and tpc.cod_zona = #{cod_zona} " +
+            "and tgc.cod_zona = #{cod_zona} " +
             "GROUP BY tt.txt_matricula " +
             "HAVING COUNT(*) > 1) " +
             "UPDATE validacion.t_sancion as ts " +
             "SET cod_estado_sancion  = 4 " +
             "from validacion.t_transito as tt " +
             "inner join t_punto_captura tpc on tpc.cod_pdc = tt.cod_pdc " +
+            "inner join validacion.t_grupo_pdc tgp on tgp.cod_grupo_pdc = tpc.cod_grupo_pdc " +
             "WHERE tt.cod_transito = ts.cod_transito " +
             "and tt.txt_matricula IN (SELECT matriculas FROM registros_repetidos) " +
             "AND cod_sancion::varchar not in (SELECT ids_excluir FROM registros_repetidos) " +
             "and ts.cod_estado_sancion in (0, 5, 12, 17) " +
             "and ts.fec_sancion = #{fec_sancion} " +
-            "and tpc.cod_zona = #{cod_zona}")
+            "and tgc.cod_zona = #{cod_zona}")
     int rechazarSancionesDuplicadas(@Param("fec_sancion") Date fec_sancion, @Param("cod_zona") int cod_zona);
 
     @Update("UPDATE validacion.t_sancion s SET " +
             "cod_estado_sancion = #{cod_estado_castigada} " +
             "FROM validacion.t_transito t " +
-            "inner join validacion.t_punto_captura p on p.cod_pdc = t.cod_pdc " +
+            "inner join validacion.t_punto_captura pc on pc.cod_pdc = t.cod_pdc " +
+            "inner join validacion.t_grupo_pdc gc on gc.cod_grupo_pdc = pc.cod_grupo_pdc " +
             "where s.cod_transito = t.cod_transito " +
             "and s.fec_sancion = #{fec_sancion} " +
-            "and p.cod_zona = #{cod_zona} " +
+            "and gc.cod_zona = #{cod_zona} " +
             "and s.cod_estado_sancion = #{cod_estado_nueva}")
     int castigarSancionesNuevas(@Param("fec_sancion") Date fec_sancion, @Param("cod_zona") int cod_zona, @Param("cod_estado_nueva") int cod_estado_nueva, @Param("cod_estado_castigada") int cod_estado_castigada);
 }
