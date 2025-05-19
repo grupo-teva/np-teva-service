@@ -55,7 +55,7 @@ public interface SancionStore {
             "inner join validacion.t_grupo_pdc tgp on tgp.cod_grupo_pdc = tpc.cod_grupo_pdc " +
             "where ts.cod_estado_sancion in (0, 5, 12, 17) " +
             "and ts.fec_sancion = #{fec_sancion} " +
-            "and tgc.cod_zona = #{cod_zona} " +
+            "and tgp.cod_zona = #{cod_zona} " +
             "GROUP BY tt.txt_matricula " +
             "HAVING COUNT(*) > 1) " +
             "UPDATE validacion.t_sancion as ts " +
@@ -68,7 +68,7 @@ public interface SancionStore {
             "AND cod_sancion::varchar not in (SELECT ids_excluir FROM registros_repetidos) " +
             "and ts.cod_estado_sancion in (0, 5, 12, 17) " +
             "and ts.fec_sancion = #{fec_sancion} " +
-            "and tgc.cod_zona = #{cod_zona}")
+            "and tgp.cod_zona = #{cod_zona}")
     int rechazarSancionesDuplicadas(@Param("fec_sancion") Date fec_sancion, @Param("cod_zona") int cod_zona);
 
     @Update("UPDATE validacion.t_sancion s SET " +
