@@ -1,9 +1,11 @@
 package com.np.teva.persistence.mybatis.store;
 
 import com.np.teva.core.bean.TransitoBean;
+import com.np.teva.core.bean.TransitoExonerableBean;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.type.JdbcType;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -172,6 +174,30 @@ public interface TransitoStore {
     })
     List<TransitoBean> findTransitosPendientesRemesar(@Param("fechaSancion") Date fechaSancion, @Param("codigoZona") int codigoZona);
 
+    @Select({"select * from validacion.\"STransitosCruceZBE\"();"})
+    @Results(value = {
+            @Result(property = "codTransito", column = "cod_transito", javaType = UUID.class, jdbcType = JdbcType.OTHER, typeHandler = com.np.teva.persistence.mybatis.typehandler.UUIDTypeHandler.class),
+            @Result(property = "codSancion", column = "cod_sancion", javaType = UUID.class, jdbcType = JdbcType.OTHER, typeHandler = com.np.teva.persistence.mybatis.typehandler.UUIDTypeHandler.class),
+            @Result(property = "matricula", column = "txt_matricula"),
+            @Result(property = "entrada", column = "ind_entrada"),
+            @Result(property = "fechaTransito", column = "tms_transito"),
+            @Result(property = "codPdc", column = "cod_pdc")
+    })
+    List<TransitoExonerableBean> findTransitosExonerables();
+
+    @Select({"select * from validacion.\"STransitosSalidaSiguientes\"(#{txt_matricula}, #{tms_transito});"})
+    @Results(value = {
+            @Result(property = "codTransito", column = "cod_transito", javaType = UUID.class, jdbcType = JdbcType.OTHER, typeHandler = com.np.teva.persistence.mybatis.typehandler.UUIDTypeHandler.class),
+            @Result(property = "codSancion", column = "cod_sancion", javaType = UUID.class, jdbcType = JdbcType.OTHER, typeHandler = com.np.teva.persistence.mybatis.typehandler.UUIDTypeHandler.class),
+            @Result(property = "matricula", column = "txt_matricula"),
+            @Result(property = "entrada", column = "ind_entrada"),
+            @Result(property = "fechaTransito", column = "tms_transito"),
+            @Result(property = "codPdc", column = "cod_pdc")
+    })
+    List<TransitoExonerableBean> findTransitosSalidaSiguientes(@Param("txt_matricula") String matricula, @Param("tms_transito") Timestamp tmsTransito);
+
+    @Update({"select * from validacion.\"UTransitoImporter\"(#{cod_transito});"})
+    int marcarTransitoImporter(@Param("cod_transito") String codTransito);
 
     @Update({"UPDATE validacion.t_transito SET cod_tipo_transito = #{tipoTransito}, "
             + "cod_estado_importacion = #{importStateType}, "

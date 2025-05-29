@@ -1,6 +1,7 @@
 package com.np.teva.service.impl;
 
 import com.np.teva.core.bean.TransitoBean;
+import com.np.teva.core.bean.TransitoExonerableBean;
 import com.np.teva.core.exception.AccesoDatosException;
 import com.np.teva.persistence.mybatis.store.TransitoStore;
 import com.np.teva.service.TransitoService;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -92,6 +94,51 @@ public class TransitoServiceImpl implements TransitoService {
         }
 
         return transitos;
+    }
+
+    @Override
+    public List<TransitoExonerableBean> findTransitosExonerables() throws AccesoDatosException {
+        List<TransitoExonerableBean> transitos = new ArrayList<>();
+
+        try {
+            transitos = transitoStore.findTransitosExonerables();
+
+        } catch (MyBatisSystemException mex) {
+            throw new AccesoDatosException("MyBatisSystemException running findTransitosExonerables", mex);
+        } catch (DataAccessException dex) {
+            throw new AccesoDatosException("DataAccessException running findTransitosExonerables", dex);
+        }
+
+        return transitos;
+    }
+
+    @Override
+    public List<TransitoExonerableBean> findTransitosSalidaSiguientes(String matricula, Timestamp fechaTransito) throws AccesoDatosException {
+        List<TransitoExonerableBean> transitos = new ArrayList<>();
+
+        try {
+            transitos = transitoStore.findTransitosSalidaSiguientes(matricula, fechaTransito);
+
+        } catch (MyBatisSystemException mex) {
+            throw new AccesoDatosException("MyBatisSystemException running findTransitosSalidaSiguientes", mex);
+        } catch (DataAccessException dex) {
+            throw new AccesoDatosException("DataAccessException running findTransitosSalidaSiguientes", dex);
+        }
+
+        return transitos;
+    }
+
+    @Override
+    public int marcarTransitoImporter(String codTransito) throws AccesoDatosException {
+        int result = 0;
+
+        try{
+            result = transitoStore.marcarTransitoImporter(codTransito);
+        } catch (MyBatisSystemException e) {
+            throw new AccesoDatosException("MyBatisSystemException running marcarTransitoImporter", e);
+        }
+
+        return result;
     }
 
     @Override

@@ -8,6 +8,9 @@ import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class VehiculoServiceImpl implements VehiculoService {
 
@@ -30,5 +33,17 @@ public class VehiculoServiceImpl implements VehiculoService {
         }
 
         return vehiculo;
+    }
+
+    @Override
+    public List<String> findTitularesVehiculo(String matricula) throws AccesoDatosException {
+        List<String> titulares = new ArrayList<>();
+        try {
+            titulares = vehiculoStore.findTitulares(matricula);
+        } catch (MyBatisSystemException e) {
+            throw new AccesoDatosException("MyBatisSystemException running findTitulares.", e);
+        }
+
+        return titulares;
     }
 }

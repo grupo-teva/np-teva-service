@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface VehiculoStore {
 
@@ -22,4 +24,10 @@ public interface VehiculoStore {
             "from validacion.ft_datos_vehiculo " +
             "WHERE txt_matricula = #{matricula}"})
     VehiculoBean findVehiculo(@Param("matricula") String matricula);
+
+    @Select({"select txt_documento " +
+            "from ft_titular_vehiculo " +
+            "where txt_matricula = #{matricula} " +
+            "and fec_baja_titularidad is null"})
+    List<String> findTitulares(@Param("matricula") String matricula);
 }

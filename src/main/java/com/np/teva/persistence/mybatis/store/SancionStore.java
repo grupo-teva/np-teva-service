@@ -77,4 +77,13 @@ public interface SancionStore {
             "and p.cod_zona = #{cod_zona} " +
             "and s.cod_estado_sancion = #{cod_estado_nueva}")
     int castigarSancionesNuevas(@Param("fec_sancion") Date fec_sancion, @Param("cod_zona") int cod_zona, @Param("cod_estado_nueva") int cod_estado_nueva, @Param("cod_estado_castigada") int cod_estado_castigada);
+
+    @Update("update t_sancion s set " +
+            "cod_estado_sancion = #{cod_estado_duplicidad} " +
+            "from t_transito t " +
+            "where t.cod_transito = s.cod_transito " +
+            "and s.fec_sancion = #{fec_sancion} " +
+            "and t.txt_matricula = #{txt_matricula} " +
+            "and s.cod_estado_sancion = 0")
+    int descartarDuplicadosTiempoCruce(@Param("fec_sancion") Date fec_sancion, @Param("txt_matricula") String txt_matricula, @Param("cod_estado_duplicidad") int cod_estado_duplicidad);
 }

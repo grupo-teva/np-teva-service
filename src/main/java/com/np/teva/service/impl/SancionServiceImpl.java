@@ -115,4 +115,19 @@ public class SancionServiceImpl implements SancionService {
 
         return total;
     }
+
+    @Override
+    public int descartarDuplicadosTiempoCruce(Date fec_sancion, String txt_matricula, int cod_estado_duplicidad) throws AccesoDatosException {
+        int total = 0;
+
+        try {
+            total = sancionStore.descartarDuplicadosTiempoCruce(fec_sancion, txt_matricula, cod_estado_duplicidad);
+        } catch (MyBatisSystemException mex) {
+            throw new AccesoDatosException("MyBatisSystemException running descartarDuplicadosTiempoCruce", mex);
+        }catch (DataAccessException dex) {
+            throw new AccesoDatosException("DataAccessException running descartarDuplicadosTiempoCruce", dex);
+        }
+
+        return total;
+    }
 }

@@ -73,4 +73,14 @@ public interface SancionService {
      * @throws AccesoDatosException
      */
     int castigarSancionesNuevas(Date fec_sancion, int cod_zona, int cod_estado_nuevo, int cod_estado_castigado) throws AccesoDatosException;
+
+    /**
+     * Descarta las sanciones castigadas de un vehículo una vez que se ha librado para ese día por el tiempo de acceso.
+     * @param fec_sancion Fecha de la sanción.
+     * @param txt_matricula Matrícula del vehículo a descartar.
+     * @param cod_estado_duplicidad Código del estado con el que se marcarán las sanciones duplicadas.
+     * @return Entero con el número de sanciones descartadas.
+     * @throws AccesoDatosException
+     */
+    int descartarDuplicadosTiempoCruce(Date fec_sancion, String txt_matricula, int cod_estado_duplicidad) throws AccesoDatosException;
 }
