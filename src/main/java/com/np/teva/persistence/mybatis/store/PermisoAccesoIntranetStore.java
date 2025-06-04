@@ -1,5 +1,6 @@
 package com.np.teva.persistence.mybatis.store;
 
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.np.teva.core.bean.AccesoIntranetBean;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -19,11 +20,12 @@ public interface PermisoAccesoIntranetStore {
             + " , ftp.cod_colectivo as codColectivo "
             + " from validacion.ft_permiso_acceso_intranet ftp  "
             + " where ftp.txt_matricula = #{matricula} "
-            + "     AND (ftp.cod_tipo_perm = 1 or ftp.cod_tipo_perm = 8) "
-            + "     AND (ftp.cod_colectivo is null and ftp.cod_parking is null) "
             + "     AND ftp.cod_estado_perm in (1, 2, 4, 6) "
+            + "     AND (ftp.cod_tipo_perm = 1 or ftp.cod_tipo_perm = 8) "
+            + "     AND #{zona} = any(ftp.cod_zona) "
+            + "     AND (ftp.cod_colectivo is null and ftp.cod_parking is null) "
             + "     AND ftp.fec_inicio <= #{dia} AND ftp.fec_fin >= #{dia} ")
-    List<AccesoIntranetBean> getPermisosPuntualesAcessoByPlate(@Param("matricula") String matricula, @Param("dia") Timestamp dia);
+    List<AccesoIntranetBean> getPermisosPuntualesAcessoByPlate(@Param("matricula") String matricula, @Param("dia") Timestamp dia, @Param("zona") Integer zona);
 
     @Select("select ftp.txt_matricula as plate "
             + " , ftp.cod_tipo_perm as tipoPermiso "
@@ -33,11 +35,12 @@ public interface PermisoAccesoIntranetStore {
             + " , ftp.cod_colectivo as codColectivo "
             + " from validacion.ft_permiso_acceso_intranet ftp  "
             + " where ftp.txt_matricula = #{matricula} "
-            + "     AND ftp.cod_tipo_perm in (2, 3, 4, 5, 6, 7) "
             + "     AND ftp.cod_estado_perm in (1, 2, 4, 6) "
+            + "     AND ftp.cod_tipo_perm in (2, 3, 4, 5, 6, 7) "
+            + "     AND #{zona} = any(ftp.cod_zona) "
             + "     and ftp.fec_inicio <=  #{dia} "
             + "     and (COALESCE(ftp.fec_fin, #{dia}::date) >= #{dia} )")
-    List<AccesoIntranetBean> getPermisosAcessoByPlate(@Param("matricula") String matricula, @Param("dia") Timestamp dia);
+    List<AccesoIntranetBean> getPermisosAcessoByPlate(@Param("matricula") String matricula, @Param("dia") Timestamp dia, @Param("zona") Integer zona);
 
     @Select("select ftp.txt_matricula as plate "
             + " , ftp.cod_tipo_perm as tipoPermiso "

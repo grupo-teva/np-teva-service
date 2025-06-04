@@ -20,12 +20,12 @@ public class PermisoAccesoIntranetServiceImpl implements PermisoAccesoIntranetSe
     private PermisoAccesoIntranetStore permisoAccesoIntranetStore;
 
     @Override
-    public List<AccesoIntranetBean> getPermisosAcessoByPlate(String plate, Timestamp day, Integer pdc) throws AccesoDatosException {
+    public List<AccesoIntranetBean> getPermisosAcessoByPlate(String plate, Timestamp day, Integer pdc, Integer codZona) throws AccesoDatosException {
         List<AccesoIntranetBean> accesos = Collections.emptyList();
 
         try {
-            List<AccesoIntranetBean> accesosEstandar = permisoAccesoIntranetStore.getPermisosAcessoByPlate(plate, day);
-            List<AccesoIntranetBean> accesosPuntuales = permisoAccesoIntranetStore.getPermisosPuntualesAcessoByPlate(plate, day);
+            List<AccesoIntranetBean> accesosEstandar = permisoAccesoIntranetStore.getPermisosAcessoByPlate(plate, day, codZona);
+            List<AccesoIntranetBean> accesosPuntuales = permisoAccesoIntranetStore.getPermisosPuntualesAcessoByPlate(plate, day, codZona);
             List<AccesoIntranetBean> accesosColectivos = permisoAccesoIntranetStore.getPermisosPuntualesColectivoAcessoByPlate(plate, day, pdc);
             List<AccesoIntranetBean> accesosParking = permisoAccesoIntranetStore.getPermisosPuntualesParkingAcessoByPlate(plate, day);
 

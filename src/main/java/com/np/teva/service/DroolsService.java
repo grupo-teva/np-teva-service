@@ -8,9 +8,7 @@ import java.util.List;
 
 public interface DroolsService {
 
-    DroolsResponseBean isValidVehicle(TransitoBean transitoBean, VehiculoBean vehiculoBean, List<AccesosBean> accesosBeanList, boolean isLaborable, List<ReglaAccesoBean> reglas, Boolean isDomiciliado, Boolean cumpleItinerario, Boolean historico) throws DroolsException;
+    DroolsResponseBean isValidVehicle(TransitoBean transitoBean, VehiculoBean vehiculoBean, List<AccesosBean> accesosBeanList, boolean isLaborable, List<ReglaAccesoBean> reglas, Boolean isDomiciliado, Boolean cumpleItinerario, Boolean historico, Integer codZona) throws DroolsException;
 
     void createReglaTransitoByName(TransitoBean transitoBean, DroolsResponseBean droolsResultExport) throws AccesoDatosException;
-
-    DroolsResponseBean checkDrools(TransitoBean transitoBean) throws DroolsException, AccesoDatosException;
 }

@@ -7,6 +7,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface PermisoAccesoIntranetService {
-    List<AccesoIntranetBean> getPermisosAcessoByPlate(String plate, Timestamp day, Integer pdc) throws AccesoDatosException;
+    List<AccesoIntranetBean> getPermisosAcessoByPlate(String plate, Timestamp day, Integer pdc, Integer codZona) throws AccesoDatosException;
 
 }
